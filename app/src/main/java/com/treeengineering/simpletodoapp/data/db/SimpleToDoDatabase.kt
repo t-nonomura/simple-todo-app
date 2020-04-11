@@ -4,10 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.treeengineering.simpletodoapp.data.db.dao.ToDoDao
-import com.treeengineering.simpletodoapp.data.db.entity.ToDoEntity
+import com.treeengineering.simpletodoapp.data.db.entity.LocalToDo
 
 @Database(
-    entities = [ToDoEntity::class],
+    entities = [LocalToDo::class],
     version = 1
 )
 @TypeConverters(SimpleToDoDatabaseConverter::class)

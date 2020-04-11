@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "todo")
-data class ToDoEntity(
+data class LocalToDo(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val title: String,
