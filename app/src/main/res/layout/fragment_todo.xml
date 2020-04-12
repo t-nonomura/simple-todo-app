@@ -3,19 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="addButtonEnabled"
+            type="Boolean" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_text_todo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_todo_hint"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view_todo"
+            app:layout_constraintEnd_toStartOf="@id/image_add_todo"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/guideline_top" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/image_add_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:src="@drawable/ic_add_circle_black_24dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:enabled="@{addButtonEnabled}"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_todo"
+            app:layout_constraintTop_toTopOf="@id/edit_text_todo"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/edit_text_todo" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/todo_recycler_view"
+            android:id="@+id/recycler_view_todo"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_todo"
             tools:listitem="@layout/item_todo_list" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="32dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="32dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
