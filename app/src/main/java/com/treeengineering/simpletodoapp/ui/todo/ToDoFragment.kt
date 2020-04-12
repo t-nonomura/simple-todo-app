@@ -48,16 +48,16 @@ class ToDoFragment : Fragment() {
 
     private fun setUpObserve(adapter: GroupAdapter<GroupieViewHolder>) {
         val clickListener = object : ToDoListItem.ClickListener {
-            override fun onClickItem() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onClickItem(position: Int) {
+
             }
 
-            override fun onClickCheckbox() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onClickCheckbox(position: Int) {
+
             }
 
-            override fun onClickDelete() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onClickDelete(position: Int) {
+                todoViewModel.deleteToDo(position)
             }
         }
         todoViewModel.firstToDoList.observe(viewLifecycleOwner, Observer { todoList ->

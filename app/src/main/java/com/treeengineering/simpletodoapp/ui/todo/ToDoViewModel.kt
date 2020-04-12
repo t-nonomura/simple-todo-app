@@ -58,4 +58,14 @@ class ToDoViewModel(private val toDoRepository: ToDoRepository) : ViewModel() {
     fun getFirstTodoList() = GlobalScope.launch {
         toDoRepository.getFirstToDoList()
     }
+
+    /**
+     * 指定したpositionのToDoを削除
+     */
+    fun deleteToDo(position: Int) = GlobalScope.launch {
+        val targetToDo = toDoRepository.getToDoFromPosition(position)
+        targetToDo?.let {
+            toDoRepository.delete(it)
+        }
+    }
 }

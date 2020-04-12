@@ -16,6 +16,11 @@ interface ToDoRepository {
     suspend fun updateToDo(todo: ToDo)
 
     /**
+     * 指定したpositionのToDoを取得
+     */
+    suspend fun getToDoFromPosition(position: Int): ToDo?
+
+    /**
      * 全てのToDoを取得(初回表示用に直接リストを取得)
      */
     suspend fun getFirstToDoList(): List<ToDo>?
@@ -34,6 +39,16 @@ interface ToDoRepository {
      * 未完了のToDoを取得
      */
     fun getNotCompletedToDoList(): Flow<List<ToDo>?>
+
+    /**
+     * 全てのToDoを削除
+     */
+    suspend fun deleteAll()
+
+    /**
+     * 指定したToDoを削除
+     */
+    suspend fun delete(todo: ToDo)
 }
 
 class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
@@ -44,6 +59,10 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
 
     override suspend fun updateToDo(todo: ToDo) {
         toDoDao.update(todo)
+    }
+
+    override suspend fun getToDoFromPosition(position: Int): ToDo? {
+        return toDoDao.getTodoFromPosition(position)
     }
 
     override suspend fun getFirstToDoList(): List<ToDo>? {
@@ -60,5 +79,13 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
 
     override fun getNotCompletedToDoList(): Flow<List<ToDo>?> {
         return toDoDao.getNotCompletedToDoList()
+    }
+
+    override suspend fun deleteAll() {
+        toDoDao.deleteAll()
+    }
+
+    override suspend fun delete(todo: ToDo) {
+        toDoDao.delete(todo)
     }
 }
