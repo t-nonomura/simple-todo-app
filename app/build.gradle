@@ -66,6 +66,10 @@ dependencies {
     implementation "com.xwray:groupie:$groupie_version"
     implementation "com.xwray:groupie-databinding:$groupie_version"
 
+    // CardView
+    def card_view_version = "1.0.0"
+    implementation "androidx.cardview:cardview:$card_view_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

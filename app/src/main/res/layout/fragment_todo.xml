@@ -38,7 +38,6 @@
             android:src="@drawable/ic_add_circle_black_24dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:enabled="@{addButtonEnabled}"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintBottom_toBottomOf="@id/edit_text_todo"
             app:layout_constraintTop_toTopOf="@id/edit_text_todo"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"

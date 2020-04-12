@@ -9,6 +9,6 @@ class ToDoListItem(private val todo: ToDo) : BindableItem<ItemTodoListBinding>()
     override fun getLayout() = R.layout.item_todo_list
 
     override fun bind(viewBinding: ItemTodoListBinding, position: Int) {
-        viewBinding.todoTitle.text = todo.title
+        viewBinding.textTodoTitle.text = todo.title
     }
 }
