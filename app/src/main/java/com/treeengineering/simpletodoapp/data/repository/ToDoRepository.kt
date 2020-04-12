@@ -16,19 +16,24 @@ interface ToDoRepository {
     suspend fun updateToDo(todo: ToDo)
 
     /**
+     * 全てのToDoを取得(初回表示用に直接リストを取得)
+     */
+    suspend fun getFirstToDoList(): List<ToDo>?
+
+    /**
      * 全てのToDoを取得
      */
-    fun getToDoList(): Flow<List<ToDo>>
+    fun getToDoList(): Flow<List<ToDo>?>
 
     /**
      * 完了済みのToDoを取得
      */
-    fun getCompletedToDoList(): Flow<List<ToDo>>
+    fun getCompletedToDoList(): Flow<List<ToDo>?>
 
     /**
      * 未完了のToDoを取得
      */
-    fun getNotCompletedToDoList(): Flow<List<ToDo>>
+    fun getNotCompletedToDoList(): Flow<List<ToDo>?>
 }
 
 class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
@@ -41,15 +46,19 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
         toDoDao.update(todo)
     }
 
-    override fun getToDoList(): Flow<List<ToDo>> {
+    override suspend fun getFirstToDoList(): List<ToDo>? {
+        return toDoDao.getFirstToDoList()
+    }
+
+    override fun getToDoList(): Flow<List<ToDo>?> {
         return toDoDao.getToDoList()
     }
 
-    override fun getCompletedToDoList(): Flow<List<ToDo>> {
+    override fun getCompletedToDoList(): Flow<List<ToDo>?> {
         return toDoDao.getCompletedToDoList()
     }
 
-    override fun getNotCompletedToDoList(): Flow<List<ToDo>> {
+    override fun getNotCompletedToDoList(): Flow<List<ToDo>?> {
         return toDoDao.getNotCompletedToDoList()
     }
 }

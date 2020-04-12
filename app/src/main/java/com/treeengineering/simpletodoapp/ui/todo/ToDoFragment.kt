@@ -42,6 +42,8 @@ class ToDoFragment : Fragment() {
             todoViewModel.clickedAddToDoButton()
             binding.todoText = ""
         }
+        // 初回表示用にToDo一覧をDBから取得
+        todoViewModel.getFirstTodoList()
     }
 
     private fun setUpObserve(adapter: GroupAdapter<GroupieViewHolder>) {
@@ -58,6 +60,13 @@ class ToDoFragment : Fragment() {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
+        todoViewModel.firstToDoList.observe(viewLifecycleOwner, Observer { todoList ->
+            todoList?.let {
+                adapter.update(it.map { todo ->
+                    ToDoListItem(todo, clickListener)
+                })
+            }
+        })
 
         todoViewModel.todoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {

@@ -1,5 +1,6 @@
 package com.treeengineering.simpletodoapp.ui.todo
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.treeengineering.simpletodoapp.data.db.entity.ToDo
@@ -9,6 +10,12 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class ToDoViewModel(private val toDoRepository: ToDoRepository) : ViewModel() {
+    /**
+     * 全てのToDo一覧
+     * 初回取得用
+     */
+    val firstToDoList = MutableLiveData<List<ToDo>>()
+
     /**
      * 全てのToDo一覧
      * Roomから取得したFlowをLiveDataに変換したもの
@@ -43,5 +50,12 @@ class ToDoViewModel(private val toDoRepository: ToDoRepository) : ViewModel() {
             createdDate = Date()
         )
         toDoRepository.addToDo(toDo)
+    }
+
+    /**
+     * 初回表示用にToDo一覧を取得
+     */
+    fun getFirstTodoList() = GlobalScope.launch {
+        toDoRepository.getFirstToDoList()
     }
 }
