@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="todoText"
+            type="String" />
+
+        <variable
             name="addButtonEnabled"
             type="Boolean" />
     </data>
@@ -20,6 +24,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/add_todo_hint"
             android:inputType="text"
+            android:text="@{todoText}"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_todo"
             app:layout_constraintEnd_toStartOf="@id/image_add_todo"
             app:layout_constraintStart_toStartOf="@id/guideline_start"

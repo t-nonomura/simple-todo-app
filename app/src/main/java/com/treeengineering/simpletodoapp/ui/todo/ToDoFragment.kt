@@ -40,6 +40,7 @@ class ToDoFragment : Fragment() {
         // ToDo追加ボタン
         image_add_todo.setOnClickListener {
             todoViewModel.clickedAddToDoButton()
+            binding.todoText = ""
         }
     }
 
