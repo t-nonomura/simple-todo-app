@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.treeengineering.simpletodoapp.R
+import com.treeengineering.simpletodoapp.data.db.entity.ToDo
 import com.treeengineering.simpletodoapp.databinding.FragmentTodoBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -15,7 +17,8 @@ import kotlinx.android.synthetic.main.fragment_todo.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ToDoFragment : Fragment() {
-    private val todoViewModel: ToDoViewModel by viewModel()
+    private val toDoViewModel: ToDoViewModel by viewModel()
+    private lateinit var adapter: GroupAdapter<GroupieViewHolder>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,65 +29,44 @@ class ToDoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter = GroupAdapter()
         val binding = FragmentTodoBinding.bind(view)
-        val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerViewTodo.adapter = adapter
+        val itemAnimator = binding.recyclerViewTodo.itemAnimator
+        if (itemAnimator is SimpleItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
 
         // LiveDataの監視
-        setUpObserve(adapter)
+        setUpObserve()
         // ToDo入力欄の設定
         edit_text_todo.doOnTextChanged { text, _, _, _ ->
-            todoViewModel.todoEditText = text.toString()
+            toDoViewModel.todoEditText = text.toString()
             binding.addButtonEnabled = text.toString().isNotEmpty()
         }
         // ToDo追加ボタン
         image_add_todo.setOnClickListener {
-            todoViewModel.clickedAddToDoButton()
+            toDoViewModel.clickedAddToDoButton()
             binding.todoText = ""
         }
-        // 初回表示用にToDo一覧をDBから取得
-        todoViewModel.getFirstTodoList()
     }
 
-    private fun setUpObserve(adapter: GroupAdapter<GroupieViewHolder>) {
+    private fun setUpObserve() {
         val clickListener = object : ToDoListItem.ClickListener {
-            override fun onClickItem(position: Int) {
-
+            override fun onClickItem(toDo: ToDo) {
+                // TODO 機能拡張
             }
 
-            override fun onClickCheckbox(position: Int) {
-
+            override fun onClickCheckbox(toDo: ToDo) {
+                toDoViewModel.checkToDo(toDo)
             }
 
-            override fun onClickDelete(position: Int) {
-                todoViewModel.deleteToDo(position)
+            override fun onClickDelete(toDo: ToDo) {
+                toDoViewModel.deleteToDo(toDo)
             }
         }
-        todoViewModel.firstToDoList.observe(viewLifecycleOwner, Observer { todoList ->
-            todoList?.let {
-                adapter.update(it.map { todo ->
-                    ToDoListItem(todo, clickListener)
-                })
-            }
-        })
 
-        todoViewModel.todoList.observe(viewLifecycleOwner, Observer { todoList ->
-            todoList?.let {
-                adapter.update(it.map { todo ->
-                    ToDoListItem(todo, clickListener)
-                })
-            }
-        })
-
-        todoViewModel.completedToDoList.observe(viewLifecycleOwner, Observer { todoList ->
-            todoList?.let {
-                adapter.update(it.map { todo ->
-                    ToDoListItem(todo, clickListener)
-                })
-            }
-        })
-
-        todoViewModel.notCompletedToDoList.observe(viewLifecycleOwner, Observer { todoList ->
+        toDoViewModel.todoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {
                 adapter.update(it.map { todo ->
                     ToDoListItem(todo, clickListener)

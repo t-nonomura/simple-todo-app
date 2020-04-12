@@ -3,6 +3,7 @@ package com.treeengineering.simpletodoapp.data.repository
 import com.treeengineering.simpletodoapp.data.db.dao.ToDoDao
 import com.treeengineering.simpletodoapp.data.db.entity.ToDo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 interface ToDoRepository {
     /**
@@ -16,29 +17,19 @@ interface ToDoRepository {
     suspend fun updateToDo(todo: ToDo)
 
     /**
-     * 指定したpositionのToDoを取得
-     */
-    suspend fun getToDoFromPosition(position: Int): ToDo?
-
-    /**
-     * 全てのToDoを取得(初回表示用に直接リストを取得)
-     */
-    suspend fun getFirstToDoList(): List<ToDo>?
-
-    /**
      * 全てのToDoを取得
      */
-    fun getToDoList(): Flow<List<ToDo>?>
+    fun getToDoList(): Flow<List<ToDo>>
 
     /**
      * 完了済みのToDoを取得
      */
-    fun getCompletedToDoList(): Flow<List<ToDo>?>
+    fun getCompletedToDoList(): Flow<List<ToDo>>
 
     /**
      * 未完了のToDoを取得
      */
-    fun getNotCompletedToDoList(): Flow<List<ToDo>?>
+    fun getNotCompletedToDoList(): Flow<List<ToDo>>
 
     /**
      * 全てのToDoを削除
@@ -61,24 +52,20 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
         toDoDao.update(todo)
     }
 
-    override suspend fun getToDoFromPosition(position: Int): ToDo? {
-        return toDoDao.getTodoFromPosition(position)
-    }
-
-    override suspend fun getFirstToDoList(): List<ToDo>? {
-        return toDoDao.getFirstToDoList()
-    }
-
-    override fun getToDoList(): Flow<List<ToDo>?> {
+    override fun getToDoList(): Flow<List<ToDo>> {
         return toDoDao.getToDoList()
     }
 
-    override fun getCompletedToDoList(): Flow<List<ToDo>?> {
-        return toDoDao.getCompletedToDoList()
+    override fun getCompletedToDoList(): Flow<List<ToDo>> {
+        return getToDoList().map { list ->
+            list.filter { it.completed }
+        }
     }
 
-    override fun getNotCompletedToDoList(): Flow<List<ToDo>?> {
-        return toDoDao.getNotCompletedToDoList()
+    override fun getNotCompletedToDoList(): Flow<List<ToDo>> {
+        return getToDoList().map { list ->
+            list.filterNot { it.completed }
+        }
     }
 
     override suspend fun deleteAll() {

@@ -6,21 +6,29 @@ import com.treeengineering.simpletodoapp.databinding.ItemTodoListBinding
 import com.xwray.groupie.databinding.BindableItem
 
 class ToDoListItem(
-    private val todo: ToDo,
+    private val toDo: ToDo,
     private val clickListener: ClickListener
-) : BindableItem<ItemTodoListBinding>() {
+) : BindableItem<ItemTodoListBinding>(toDo.id) {
     interface ClickListener {
-        fun onClickItem(position: Int)
-        fun onClickCheckbox(position: Int)
-        fun onClickDelete(position: Int)
+        fun onClickItem(toDo: ToDo)
+        fun onClickCheckbox(toDo: ToDo)
+        fun onClickDelete(toDo: ToDo)
     }
 
     override fun getLayout() = R.layout.item_todo_list
 
     override fun bind(viewBinding: ItemTodoListBinding, position: Int) {
-        viewBinding.textTodoTitle.text = todo.title
-        viewBinding.cardViewTodo.setOnClickListener { clickListener.onClickItem(position) }
-        viewBinding.checkboxTodo.setOnClickListener { clickListener.onClickCheckbox(position) }
-        viewBinding.imageDeleteTodo.setOnClickListener { clickListener.onClickDelete(position) }
+        viewBinding.textTodoTitle.text = toDo.title
+        viewBinding.checkboxTodo.isChecked = toDo.completed
+        viewBinding.cardViewTodo.setOnClickListener {
+            clickListener.onClickItem(toDo)
+        }
+        viewBinding.checkboxTodo.setOnCheckedChangeListener { _, isChecked ->
+            clickListener.onClickCheckbox(toDo.copy(completed = isChecked))
+        }
+        viewBinding.imageDeleteTodo.setOnClickListener {
+            clickListener.onClickDelete(toDo)
+        }
     }
 }
+
