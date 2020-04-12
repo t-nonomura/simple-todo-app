@@ -45,10 +45,24 @@ class ToDoFragment : Fragment() {
     }
 
     private fun setUpObserve(adapter: GroupAdapter<GroupieViewHolder>) {
+        val clickListener = object : ToDoListItem.ClickListener {
+            override fun onClickItem() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onClickCheckbox() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onClickDelete() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+
         todoViewModel.todoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {
                 adapter.update(it.map { todo ->
-                    ToDoListItem(todo)
+                    ToDoListItem(todo, clickListener)
                 })
             }
         })
@@ -56,7 +70,7 @@ class ToDoFragment : Fragment() {
         todoViewModel.completedToDoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {
                 adapter.update(it.map { todo ->
-                    ToDoListItem(todo)
+                    ToDoListItem(todo, clickListener)
                 })
             }
         })
@@ -64,7 +78,7 @@ class ToDoFragment : Fragment() {
         todoViewModel.notCompletedToDoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {
                 adapter.update(it.map { todo ->
-                    ToDoListItem(todo)
+                    ToDoListItem(todo, clickListener)
                 })
             }
         })
