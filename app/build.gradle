@@ -70,7 +70,10 @@ dependencies {
     def card_view_version = "1.0.0"
     implementation "androidx.cardview:cardview:$card_view_version"
 
-    testImplementation 'junit:junit:4.12'
+    // MockK
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.4.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
