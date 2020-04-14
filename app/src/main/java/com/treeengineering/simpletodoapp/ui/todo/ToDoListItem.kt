@@ -32,8 +32,8 @@ class ToDoListItem(
         viewBinding.cardViewTodo.setOnClickListener {
             clickListener.onClickItem(toDo)
         }
-        viewBinding.checkboxTodo.setOnCheckedChangeListener { _, isChecked ->
-            clickListener.onClickCheckbox(toDo.copy(completed = isChecked))
+        viewBinding.checkboxTodo.setOnClickListener {
+            clickListener.onClickCheckbox(toDo.copy(completed = !toDo.completed))
         }
         viewBinding.imageDeleteTodo.setOnClickListener {
             clickListener.onClickDelete(toDo)
