@@ -9,13 +9,20 @@
 
 ## ライブラリ
 - [Android Jetpack](https://developer.android.com/jetpack)
-  - Android KTX
-  - Data Binding
-  - AppCompat
-  - LiveData
-  - Navigation
-  - Room
-  - ViewModel
+  - Foundation
+    - Android KTX
+    - AppCompat
+  - Architecture
+    - Data Binding
+    - LiveData
+    - Navigation
+    - Room
+    - ViewModel
+  - UI
+    - Fragment
+    - ViewPager2
+  - Widget
+    - CardView
 - Kotlin
   - Stdlib
   - Coroutines
@@ -23,3 +30,5 @@
   - [Koin](https://github.com/InsertKoinIO/koin)
 - RecyclerView
   - [Groupie](https://github.com/lisawray/groupie)
+- Unit Test
+  - [MockK](https://github.com/mockk/mockk)
