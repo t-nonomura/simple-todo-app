@@ -1,7 +1,7 @@
 # simple-todo-app
 [![Bitrise](https://app.bitrise.io/app/2cba13180fe42440/status.svg?token=D3cf-dZmU7N0oJ2n5AGP6g&branch=master)](https://app.bitrise.io/app/2cba13180fe42440)
 
-[<img src="https://dply.me/fgdmub/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fgdmub#install)
+[<img src="https://dply.me/z7clcf/button/large" alt="Try it on your device via DeployGate">](https://dply.me/z7clcf#install)
 
 ## 動作環境
 - Android Studio3.6.2
