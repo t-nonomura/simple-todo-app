@@ -81,14 +81,14 @@ class ToDoRepositoryTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getNotCompletedToDoList() = runBlocking {
+    fun getActiveCompletedToDoList() = runBlocking {
         val mockList = mockk<List<ToDo>>(relaxed = true)
         every {
             toDoDao.getToDoList().map { list ->
                 list.filterNot { it.completed }
             }
         } returns flow { emit(mockList) }
-        repository.getNotCompletedToDoList().take(1).collect {
+        repository.getActiveToDoList().take(1).collect {
             it shouldBe mockList
         }
         coVerifySequence {

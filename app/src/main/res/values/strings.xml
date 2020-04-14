@@ -3,9 +3,9 @@
     <string name="nav_header_desc">簡易的なToDoアプリ</string>
 
     <string name="fragment_todo_title">ToDo</string>
+    <string name="fragment_todo_list_title">ToDo</string>
     <string name="fragment_settings_title">設定</string>
     <string name="add_todo_hint">タスクを入力</string>
-
     <string name="menu_settings">設定</string>
 
 </resources>

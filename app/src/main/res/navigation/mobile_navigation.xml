@@ -17,4 +17,14 @@
         android:label="@string/fragment_settings_title"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/nav_todo_list"
+        android:name="com.treeengineering.simpletodoapp.ui.todo.ToDoListFragment"
+        android:label="@string/fragment_todo_list_title"
+        tools:layout="@layout/fragment_todo_list">
+        <argument
+            android:name="tabIndex"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

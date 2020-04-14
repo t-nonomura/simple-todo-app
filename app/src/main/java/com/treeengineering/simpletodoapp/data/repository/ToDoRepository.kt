@@ -27,9 +27,9 @@ interface ToDoRepository {
     fun getCompletedToDoList(): Flow<List<ToDo>>
 
     /**
-     * 未完了のToDoを取得
+     * 進行中のToDoを取得
      */
-    fun getNotCompletedToDoList(): Flow<List<ToDo>>
+    fun getActiveToDoList(): Flow<List<ToDo>>
 
     /**
      * 全てのToDoを削除
@@ -62,7 +62,7 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
         }
     }
 
-    override fun getNotCompletedToDoList(): Flow<List<ToDo>> {
+    override fun getActiveToDoList(): Flow<List<ToDo>> {
         return getToDoList().map { list ->
             list.filterNot { it.completed }
         }
