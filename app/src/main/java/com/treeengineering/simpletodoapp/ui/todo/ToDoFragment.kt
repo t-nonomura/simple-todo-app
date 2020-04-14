@@ -66,6 +66,7 @@ class ToDoFragment : Fragment() {
             }
         }
 
+        // リストの更新を監視
         toDoViewModel.todoList.observe(viewLifecycleOwner, Observer { todoList ->
             todoList?.let {
                 adapter.update(it.map { todo ->
@@ -73,5 +74,14 @@ class ToDoFragment : Fragment() {
                 })
             }
         })
+
+        // スクロール位置の更新を監視
+        toDoViewModel.scrollPosition.observe(viewLifecycleOwner, Observer { position ->
+            position?.let {
+                recycler_view_todo.scrollToPosition(it)
+            }
+        })
+
+        toDoViewModel.onCreate()
     }
 }
